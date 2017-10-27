@@ -1,0 +1,65 @@
+<div>
+	<p class="right-align">
+		<a href="/logout">Logout</a>, see you soon!
+	</p>
+	<p class="right-align">Your 
+		<a [routerLink]="['/favorites']">  Recipe Book!</a>
+	</p>
+	<p class="right-align">Check out all users favorite 
+		<a [routerLink]="['/dashboard']"> recipes</a>!!!
+	</p>
+	<h2>Hello, {{ db_service.showUsername }} !!!</h2>
+</div>
+
+<div>
+	<h4 class="left-align">Find all your favorite recipes!</h4>
+	<div>
+		<form (submit)="getRecipes()">
+			<div class="input-field col s6">
+				<input name="dishes"  type="text" class="validate" [(ngModel)]="dishes">
+				<label >What would you like to cook?</label>
+			</div>
+			<input class="waves-effect waves-purple btn" type="submit" value="Find Recipes">
+		</form>
+	</div>
+</div>
+
+<div class="input-field col s6">
+	<input type="text" name="search" class="validate" [(ngModel)]="search">
+	<label for="ingredients">Search....</label>
+</div>
+
+<div class="row">
+
+<span class="msg">{{message}}</span>
+
+
+<div class="rec_wrap">
+	<div class="img_squ" *ngFor="let recipe of recipes | filter: search">
+		<p>{{ recipe.title }}</p>
+		<a 
+			class="hoverable rec_image"
+			target="_blank" 
+			href="http://food2fork.com/view/{{recipe.recipe_id}}"
+			[ngStyle]="{
+			'background-image': 'url(' + recipe.image_url+')'
+			}"
+		>
+			<img class="size_setter" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Transparent_square.svg/2000px-Transparent_square.svg.png" alt="">
+		</a>
+
+		<p>Save Recipe to your favorites: </p>
+				<button (click)="saveRecipe(recipe)" 
+					ng-click="addVisible()"
+
+					class="btn-floating btn-small waves-effect waves-light teal">
+
+				<i class="material-icons">add</i>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+
+
